@@ -1,23 +1,26 @@
-order_prices = [12.50, 8.00, 24.50, 15.00, 9,00]
-is_takeaway = True
-subtotal = 0.0
+def calculate_total(prices):
+    subtotal_prices = 0.0
+    for order in prices:
+        subtotal_prices += order
+    return subtotal_prices
 
-for prices in order_prices:
-    subtotal += prices
+def apply_discount(subtotal):
+    subtotal_discount = 0.0
+    if subtotal >= 60.0:
+        return 0.15
+    elif subtotal >= 40.0:
+        return 0.10
+    else:
+        return 0.0
 
-discount: 0.0
+order = [15.0, 18.50, 32.0, 4.50]
 
-if subtotal >= 60.0:
-    discount = 0.15
-elif subtotal >= 40.0:
-    discount = 0.10
-else:
-    discount = 0.0
+subtotal = calculate_total(order)
 
-saved_amount = subtotal * discount
+discount_rate = apply_discount(subtotal)
 
-final_price = subtotal - saved_amount
+final_amount = subtotal - (subtotal * discount_rate)
 
 print(f"Subtotal: {subtotal:.2f}")
-print(f"Desconto: {discount * 100:.0f}%")
-print(f"Valor Final: {final_price:.2f}")
+print(f"Desconto: {discount_rate * 100:.0f}%")
+print(f"Valor Final: {final_amount:.2f}")
