@@ -1,8 +1,9 @@
 def calculate_total(prices):
-    subtotal_prices = 0.0
-    for order in prices:
-        subtotal_prices += order
-    return subtotal_prices
+    subtotal_calculated = 0.0
+    for product in prices:
+        subtotal_calculated += product["unit_price"] * product["quantity"]
+    return subtotal_calculated
+    
 
 def apply_discount(subtotal):
     subtotal_discount = 0.0
@@ -13,9 +14,18 @@ def apply_discount(subtotal):
     else:
         return 0.0
 
-order = [15.0, 18.50, 32.0, 4.50]
+order_items = [
+    {"name": "Café Coado", "unit_price": 5.00, "quantity": 2},
+    {"name": "Croissant", "unit_price": 11.50, "quantity": 2},
+    {"name": "Brownie de Chocolate", "unit_price": 9.00, "quantity": 3},
+]
 
-subtotal = calculate_total(order)
+print("Pedido:")
+
+for item in order_items:
+    print(f"Item: {item["name"]} X{item["quantity"]}")
+
+subtotal = calculate_total(order_items)
 
 discount_rate = apply_discount(subtotal)
 
