@@ -1,8 +1,9 @@
-product_name = "Mocha Especial"
-product_price = 14.50
-items_sold = 3
+order_prices = [12.50, 8.00, 24.50, 15.00, 9,00]
 is_takeaway = True
-subtotal = product_price * items_sold
+subtotal = 0.0
+
+for prices in order_prices:
+    subtotal += prices
 
 discount: 0.0
 
