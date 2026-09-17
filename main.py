@@ -14,16 +14,30 @@ def apply_discount(subtotal):
     else:
         return 0.0
 
-order_items = [
-    {"name": "Café Coado", "unit_price": 5.00, "quantity": 2},
-    {"name": "Croissant", "unit_price": 11.50, "quantity": 2},
-    {"name": "Brownie de Chocolate", "unit_price": 9.00, "quantity": 3},
-]
+def register_item():
+    try:
+        name = str(input("Qual o nome do produto: "))
+        unit_price = float(input("Qual o preço do produto: "))
+        quantity = int(input("Qual a quantidade de produtos: "))
+
+        order_items_func = [
+            {"name": name, "unit_price": unit_price, "quantity": quantity},
+        ]
+
+        return order_items_func
+    except ValueError:
+        print("Tipo de entrada inválida")
+        return None
+
+
+order_items = register_item()
+
 
 print("Pedido:")
 
 for item in order_items:
-    print(f"Item: {item["name"]} X{item["quantity"]}")
+    print(f"Item: {item["name"]} x{item["quantity"]}")
+
 
 subtotal = calculate_total(order_items)
 
