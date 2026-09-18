@@ -4,7 +4,11 @@ Projeto prático desenvolvido durante a trilha de aprendizagem dos requisitos m�
 
 Código simulando a lógica de checkout e fechamento de pedidos de uma cafeteria local.
 
-## Funcionalidades
+## Tecnologias
+* Python
+* Git/GitHub
+
+## Regras de Negócio
 * Cadastro de itens com nome, preço unitário e quantidade.
 * Cálculo automatizado de subtotal por item e total do pedido.
 * Aplicação de regras de desconto progressivo (10% e 15%).
