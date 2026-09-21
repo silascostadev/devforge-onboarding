@@ -1,3 +1,5 @@
+import json
+
 def calculate_total(prices):
     subtotal_calculated = 0.0
     for product in prices:
@@ -55,22 +57,33 @@ while True:
         break
 
     
-def calculos(carrinho):
-    subtotal = calculate_total(cart)
-    discount_rate = apply_discount(subtotal)
-    final_amount = subtotal - (subtotal * discount_rate)
 
-    print(f"Subtotal: {subtotal:.2f}")
-    print(f"Desconto: {discount_rate * 100:.0f}%")
-    print(f"Valor Final: {final_amount:.2f}")
+subtotal = calculate_total(cart)
+discount_rate = apply_discount(subtotal)
+final_amount = subtotal - (subtotal * discount_rate)
+
+
+
+
 
 for produtos in cart:
     print(f"Produto: {produtos['name']}/ Preço: {produtos['unit_price']} x{produtos['quantity']} = {produtos['unit_price'] * produtos['quantity']}")
 
+print(f"Subtotal: {subtotal:.2f}")
+print(f"Desconto: {discount_rate * 100:.0f}%")
+print(f"Valor Final: {final_amount:.2f}")
 
 if len(cart) == 0:
     print("Nenhum item foi registrado. Sistema finalizado")
 else:
-    calculos(cart)
+    pass
 
+def save_order_to_json(carrinho, subtotal, discount, total):
+
+    orders = {"items": carrinho, "subtotal": subtotal, "discount_rate": discount, "total_payable": total}
+    with open("ultimo_pedido.json", "w", encoding="utf-8") as file:
+        json.dump(orders, file, indent=4, ensure_ascii=False)
+        print("[SUCESSO] Pedido salvo em 'ultimo_pedido.json!'")
+
+save_order_to_json(cart, subtotal, discount_rate, final_amount)   
 
