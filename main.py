@@ -37,8 +37,9 @@ def save_order_to_json(carrinho, subtotal, discount, total):
         print("[SUCESSO] Pedido salvo em 'ultimo_pedido.json!'")
 
 
-try:
-    def load_last_order():
+
+def load_last_order():
+    try:
         with open("ultimo_pedido.json", "r", encoding="utf-8") as file:
             last_order=json.load(file)
             for names in last_order['items']:
@@ -46,8 +47,9 @@ try:
             print(f"Subtotal: {last_order['subtotal']}")
             print(f"Taxa de Desconto: {last_order['discount_rate']*100:.0f}%")
             print(f"Total Pago: {last_order['total_payable']:.2f}")
-except:
-    print("[AVISO] Arquivo não encontrado")
+    except FileNotFoundError:
+        print("[AVISO] Arquivo não encontrado")
+
 
 cart = []
 
