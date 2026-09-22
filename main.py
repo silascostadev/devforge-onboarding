@@ -29,12 +29,32 @@ def register_item():
         print("Tipo de entrada inválida")
         return None
 
+def save_order_to_json(carrinho, subtotal, discount, total):
+
+    orders = {"items": carrinho, "subtotal": subtotal, "discount_rate": discount, "total_payable": total}
+    with open("ultimo_pedido.json", "w", encoding="utf-8") as file:
+        json.dump(orders, file, indent=4, ensure_ascii=False)
+        print("[SUCESSO] Pedido salvo em 'ultimo_pedido.json!'")
+
+
+try:
+    def load_last_order():
+        with open("ultimo_pedido.json", "r", encoding="utf-8") as file:
+            last_order=json.load(file)
+            for names in last_order['items']:
+                print(f"Itens: {names['name']}, Valor: {names['unit_price']:.2f} x {names['quantity']} = {names['unit_price']*names['quantity']:.2f}")
+            print(f"Subtotal: {last_order['subtotal']}")
+            print(f"Taxa de Desconto: {last_order['discount_rate']*100:.0f}%")
+            print(f"Total Pago: {last_order['total_payable']:.2f}")
+except:
+    print("[AVISO] Arquivo não encontrado")
+
 cart = []
 
 while True:
 
     try:
-        menu = int(input("1 - Adicionar Item / 2 - Fechar conta e sair: "))
+        menu = int(input("1 - Adicionar Item / 2 - Ver ultimo pedido / 3 - Fechar conta e sair: "))
         
     except ValueError:
         print("Entrada Inválida")   
@@ -48,7 +68,11 @@ while True:
                 cart.append(new_item)
             else:
                 print("Produto não cadastrado. Erro na entrada")
+
         elif menu == 2:
+            load_last_order()
+
+        elif menu == 3: 
             break
         else:
             print("Entrada inválida")
@@ -76,14 +100,7 @@ print(f"Valor Final: {final_amount:.2f}")
 if len(cart) == 0:
     print("Nenhum item foi registrado. Sistema finalizado")
 else:
-    pass
+    save_order_to_json(cart, subtotal, discount_rate, final_amount) 
 
-def save_order_to_json(carrinho, subtotal, discount, total):
-
-    orders = {"items": carrinho, "subtotal": subtotal, "discount_rate": discount, "total_payable": total}
-    with open("ultimo_pedido.json", "w", encoding="utf-8") as file:
-        json.dump(orders, file, indent=4, ensure_ascii=False)
-        print("[SUCESSO] Pedido salvo em 'ultimo_pedido.json!'")
-
-save_order_to_json(cart, subtotal, discount_rate, final_amount)   
+ 
 
