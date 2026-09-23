@@ -44,8 +44,10 @@ def load_last_order():
             last_order=json.load(file)
             for names in last_order['items']:
                 print(f"Itens: {names['name']}, Valor: {names['unit_price']:.2f} x {names['quantity']} = {names['unit_price']*names['quantity']:.2f}")
-            print(f"Subtotal: {last_order['subtotal']}")
+            print("-"*35)
+            print(f"Subtotal: {last_order['subtotal']:.2f}")
             print(f"Taxa de Desconto: {last_order['discount_rate']*100:.0f}%")
+            print("-"*35)
             print(f"Total Pago: {last_order['total_payable']:.2f}")
     except FileNotFoundError:
         print("[AVISO] Arquivo não encontrado")
@@ -93,7 +95,7 @@ final_amount = subtotal - (subtotal * discount_rate)
 
 
 for produtos in cart:
-    print(f"Produto: {produtos['name']}/ Preço: {produtos['unit_price']} x{produtos['quantity']} = {produtos['unit_price'] * produtos['quantity']}")
+    print(f"Produto: {produtos['name']}/ Preço: {produtos['unit_price']:.2f} x{produtos['quantity']} = {produtos['unit_price'] * produtos['quantity']:.2f}")
 
 print(f"Subtotal: {subtotal:.2f}")
 print(f"Desconto: {discount_rate * 100:.0f}%")
