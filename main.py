@@ -1,5 +1,12 @@
 import json
 
+CATALOG = {
+    "101": {"name": "Espresso Tradicional", "price": 6.50},
+    "102": {"name": "Cappuccino Italiano", "price": 12.00},
+    "103": {"name": "Pão de Queijo Canastra", "price": 7.50},
+    "104": {"name": "Fatia de Torta Holandesa", "price": 16.00}
+}
+
 def calculate_total(prices):
     subtotal_calculated = 0.0
     for product in prices:
@@ -16,16 +23,22 @@ def apply_discount(subtotal):
     else:
         return 0.0
 
-def register_item():
+def register_item(catalog):
     try:
-        name = str(input("Qual o nome do produto: "))
-        unit_price = float(input("Qual o preço do produto: "))
-        quantity = int(input("Qual a quantidade de produtos: "))
+        code = str(input("Qual o código do produto: ")) 
+        if code in catalog:
+            try:
+                quantity = int(input("Qual a quantidade de produtos: "))
+            except ValueError, TypeError:
+                print("Quantidade Inválida")
+                return None
+            item = catalog.get(code, None)
+            order_items_func = {"name": item['name'], "unit_price": item['price'], "quantity": quantity}       
+            return order_items_func
+        else:
+            return None
 
-        order_items_func = {"name": name, "unit_price": unit_price, "quantity": quantity}
-        
-        return order_items_func
-    except ValueError:
+    except ValueError, TypeError:
         print("Tipo de entrada inválida")
         return None
 
@@ -67,9 +80,12 @@ while True:
     try:
 
         if menu == 1:
-            new_item = register_item()
+            new_item = register_item(CATALOG)
             if new_item is not None:
                 cart.append(new_item)
+                print("-"*35)
+                print (f"{new_item['name']} / Preço: {new_item['unit_price']:.2f} / Quantidade: {new_item['quantity']}")
+                print("-"*35)
             else:
                 print("Produto não cadastrado. Erro na entrada")
 
